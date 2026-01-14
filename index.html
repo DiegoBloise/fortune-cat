@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fortune Cat - Jogo de Cassino</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>🐱 Fortune Cat 🍀</h1>
+            <div class="game-info">
+                <div class="balance">
+                    <span class="label">Saldo:</span>
+                    <span class="amount" id="balance">R$ 1000.00</span>
+                </div>
+                <div class="bet">
+                    <span class="label">Aposta:</span>
+                    <div class="bet-controls">
+                        <button id="bet-decrease">-</button>
+                        <span class="amount" id="bet">R$ 10.00</span>
+                        <button id="bet-increase">+</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <div class="game-board-container">
+                <canvas id="gameCanvas"></canvas>
+                <div class="multiplier-display" id="multiplier" style="display: none;">
+                    <span class="multiplier-value"></span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="spinButton" class="spin-button">
+                    <span class="spin-text">GIRAR</span>
+                    <span class="spin-cost">R$ 10.00</span>
+                </button>
+            </div>
+
+            <div class="win-display" id="winDisplay" style="display: none;">
+                <div class="win-content">
+                    <h2>VOCÊ GANHOU!</h2>
+                    <div class="win-amount" id="winAmount">R$ 0.00</div>
+                    <div class="win-multiplier" id="winMultiplier"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <div class="paytable">
+                <h3>Tabela de Pagamento</h3>
+                <div class="symbols-grid">
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🐅</span>
+                        <span class="symbol-name">Tigre (Wild)</span>
+                        <span class="symbol-value">100x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🐱</span>
+                        <span class="symbol-name">Gato</span>
+                        <span class="symbol-value">50x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🐸</span>
+                        <span class="symbol-name">Sapo</span>
+                        <span class="symbol-value">30x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🪙</span>
+                        <span class="symbol-name">Pote de Ouro</span>
+                        <span class="symbol-value">20x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🛢️</span>
+                        <span class="symbol-name">Barril</span>
+                        <span class="symbol-value">15x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">🃏</span>
+                        <span class="symbol-name">Carta</span>
+                        <span class="symbol-value">10x</span>
+                    </div>
+                    <div class="symbol-info">
+                        <span class="symbol-emoji">💣</span>
+                        <span class="symbol-name">Bomba</span>
+                        <span class="symbol-value">5x</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="src/game/SymbolManager.js"></script>
+    <script src="src/game/WinningDetector.js"></script>
+    <script src="src/game/MultiplierEngine.js"></script>
+    <script src="src/ui/TouchController.js"></script>
+    <script src="src/ui/Canvas.js"></script>
+    <script src="src/game/SlotMachine.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slotMachine = new SlotMachine();
+            slotMachine.init();
+        });
+    </script>
+</body>
+</html>
