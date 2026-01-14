@@ -22,6 +22,13 @@ class SlotMachine {
         this.loadWalletFromStorage();
     }
 
+    formatCurrency(value) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+    }
+
     init() {
         this.canvas = new Canvas('gameCanvas');
         this.touchController = new TouchController(this.canvas.canvas);
@@ -250,12 +257,12 @@ class SlotMachine {
                     prefixText = 'BIG WIN! ';
                 }
                 
-                winAmountElement.textContent = `${prefixText}R$ ${currentAmount.toFixed(2)}`;
+                winAmountElement.textContent = `${prefixText}${this.formatCurrency(currentAmount)}`;
                 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
-                    winAmountElement.textContent = `${prefixText}R$ ${targetAmount.toFixed(2)}`;
+                    winAmountElement.textContent = `${prefixText}${this.formatCurrency(targetAmount)}`;
                     
                     // Adicionar botão de confirmação
                     this.addContinueButton(resolve);
@@ -379,9 +386,9 @@ class SlotMachine {
     }
 
     updateUI() {
-        document.getElementById('balance').textContent = `R$ ${this.wallet.balance.toFixed(2)}`;
-        document.getElementById('bet').textContent = `R$ ${this.wallet.bet.toFixed(2)}`;
-        document.querySelector('.spin-cost').textContent = `R$ ${this.wallet.bet.toFixed(2)}`;
+        document.getElementById('balance').textContent = this.formatCurrency(this.wallet.balance);
+        document.getElementById('bet').textContent = this.formatCurrency(this.wallet.bet);
+        document.querySelector('.spin-cost').textContent = this.formatCurrency(this.wallet.bet);
     }
 
     updateSpinButton(isSpinning) {
